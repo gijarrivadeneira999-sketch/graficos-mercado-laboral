@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Composición de la Población con Empleo</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #f9f8f6; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; }
+  .page-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: #1a1a2e; margin-bottom: 28px; text-align: center; }
+  .charts-row { display: flex; gap: 32px; width: 100%; max-width: 920px; flex-wrap: wrap; justify-content: center; }
+  .chart-card { background: #fff; border-radius: 16px; padding: 28px 28px 20px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); flex: 1; min-width: 280px; max-width: 420px; }
+  .chart-label { font-size: 11px; font-weight: 600; color: #6b6b80; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+  .chart-title { font-size: 17px; font-weight: 700; color: #1a1a2e; margin-bottom: 20px; }
+  .chart-container { position: relative; height: 240px; }
+  .source { margin-top: 12px; font-size: 10.5px; color: #aaa; text-align: right; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: #444; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="page-title">Composición de la población con empleo</div>
+<div class="charts-row">
+  <div class="chart-card">
+    <div class="chart-label">Distribución</div>
+    <div class="chart-title">Por edad</div>
+    <div class="legend-row">
+      <div class="legend-item"><div class="legend-dot" style="background:#F4845F"></div>45–64 años</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#3D9970"></div>35–44 años</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#74b9ff"></div>25–34 años</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#fd79a8"></div>15–24 años</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#a29bfe"></div>65+ años</div>
+    </div>
+    <div class="chart-container"><canvas id="ageChart"></canvas></div>
+    <div class="source">Fuente: INEC – ENEMDU Mar. 2026</div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-label">Distribución</div>
+    <div class="chart-title">Por género</div>
+    <div class="chart-container"><canvas id="genderChart"></canvas></div>
+    <div class="source">Fuente: INEC – ENEMDU Mar. 2026</div>
+  </div>
+</div>
+<script>
+new Chart(document.getElementById('ageChart'), {
+  type: 'pie',
+  data: {
+    labels: ['45–64 años','35–44 años','25–34 años','15–24 años','65+ años'],
+    datasets: [{ data: [31.3, 24.0, 20.8, 15.4, 8.5], backgroundColor: ['#F4845F','#3D9970','#74b9ff','#fd79a8','#a29bfe'], borderWidth: 2, borderColor: '#fff' }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.label}: ${c.parsed}%` } } } }
+});
+new Chart(document.getElementById('genderChart'), {
+  type: 'bar',
+  data: { labels: ['Hombre','Mujer'], datasets: [{ data: [59.2, 40.8], backgroundColor: ['#74b9ff','#a29bfe'], borderRadius: 8, borderSkipped: false }] },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.parsed.x}%` } } },
+    scales: {
+      x: { min: 0, max: 100, ticks: { callback: v => v+'%', font:{size:11}, color:'#888' }, grid: { color:'#f0f0f0' }, border: { display:false } },
+      y: { ticks: { font:{size:13,weight:'500'}, color:'#333' }, grid: { display:false }, border: { display:false } }
+    }
+  },
+  plugins: [{ id:'lbl', afterDatasetsDraw(chart) {
+    const {ctx}=chart; const vals=[59.2,40.8]; const cols=['#4a8cdb','#7c6ece'];
+    chart.getDatasetMeta(0).data.forEach((bar,i) => { ctx.save(); ctx.fillStyle=cols[i]; ctx.font='bold 13px DM Sans,sans-serif'; ctx.textAlign='left'; ctx.fillText(vals[i]+'%',bar.x+6,bar.y+5); ctx.restore(); });
+  }}]
+});
+</script>
+</body>
+</html>

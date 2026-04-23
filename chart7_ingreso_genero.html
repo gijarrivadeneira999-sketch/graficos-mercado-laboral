@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingreso Laboral por Género</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #f9f8f6; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px 24px; }
+  .chart-card { background: #fff; border-radius: 16px; padding: 28px 32px 22px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); width: 100%; max-width: 580px; }
+  .page-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: #1a1a2e; margin-bottom: 6px; }
+  .period-label { font-size: 12px; font-weight: 600; color: #555; margin-bottom: 6px; }
+  .note { font-size: 11px; color: #888; margin-bottom: 16px; font-style: italic; }
+  .gap-badge { display: inline-flex; align-items: center; gap: 6px; background: #ffeaa7; border: 1px solid #fdcb6e; border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #856404; font-weight: 600; margin-bottom: 16px; }
+  .chart-container { position: relative; height: 260px; }
+  .source { margin-top: 14px; font-size: 10.5px; color: #aaa; }
+</style>
+</head>
+<body>
+<div class="chart-card">
+  <div class="page-title">Ingreso laboral promedio según género</div>
+  <div class="period-label">Marzo 2026 · USD a precios constantes de Dic. 2025</div>
+  <div class="note">Incluye asalariados e independientes (ocupación principal y secundaria)</div>
+  <div class="gap-badge">⚠ Brecha de género: $54.7 — hombres ganan 13.8% más que mujeres</div>
+  <div class="chart-container"><canvas id="salaryChart"></canvas></div>
+  <div class="source">Fuente: INEC – ENEMDU Mar. 2026</div>
+</div>
+<script>
+// Valores reales a precios constantes de dic-25 (de imagen INEC)
+// Hombre: 449.8, Mujer: 395.1, Total: 429.5
+new Chart(document.getElementById('salaryChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Hombre','Mujer','Total'],
+    datasets: [{ data: [449.8, 395.1, 429.5], backgroundColor: ['#74b9ff','#a29bfe','#fd7b4d'], borderRadius: 10, borderSkipped: false, barThickness: 52 }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' $'+c.parsed.x.toFixed(1) } } },
+    scales: {
+      x: { min: 0, max: 600, ticks: { callback: v => '$'+v, font:{size:11}, color:'#888', stepSize:150 }, grid: { color:'#f0f0f0' }, border: { display:false } },
+      y: { ticks: { font:{size:13,weight:'600'}, color:'#333' }, grid: { display:false }, border: { display:false } }
+    }
+  },
+  plugins: [{ id:'barLbls', afterDatasetsDraw(chart) {
+    const {ctx}=chart; const cols=['#4a9cdb','#7c6ece','#d4603a']; const vals=[449.8,395.1,429.5];
+    chart.getDatasetMeta(0).data.forEach((bar,i) => {
+      ctx.save(); ctx.fillStyle=cols[i]; ctx.font='bold 13px DM Sans,sans-serif';
+      ctx.textAlign='left'; ctx.fillText('$'+vals[i].toFixed(1), bar.x+8, bar.y+5); ctx.restore();
+    });
+  }}]
+});
+</script>
+</body>
+</html>

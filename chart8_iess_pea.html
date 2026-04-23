@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empleo Registrado IESS / PEA</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #f9f8f6; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; }
+  .page-title { font-family: 'DM Serif Display', serif; font-size: 19px; color: #1a1a2e; margin-bottom: 4px; text-align: center; max-width: 820px; }
+  .page-subtitle { font-size: 12px; color: #888; text-align: center; margin-bottom: 24px; }
+  .chart-card { background: #fff; border-radius: 16px; padding: 24px 28px 18px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); width: 100%; max-width: 860px; }
+  .chart-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 6px; }
+  .chart-title { font-size: 15px; font-weight: 700; color: #1a1a2e; }
+  .chart-subtitle-small { font-size: 11px; color: #aaa; }
+  .latest-badge { background: #eef2ff; color: #4361ee; font-weight: 700; font-size: 15px; padding: 6px 14px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; }
+  .badge-label { font-size: 10px; font-weight: 400; color: #7e90e8; }
+  .chart-container { position: relative; height: 280px; margin-top: 14px; }
+  .source { margin-top: 12px; font-size: 10.5px; color: #aaa; }
+</style>
+</head>
+<body>
+<div class="page-title">Evolución | Empleo registrado en la Seguridad Social / PEA</div>
+<div class="page-subtitle">Empleo registrado en el IESS como porcentaje de la Población Económicamente Activa</div>
+<div class="chart-card">
+  <div class="chart-header">
+    <div>
+      <div class="chart-title">Empleo registrado en el IESS / PEA</div>
+      <div class="chart-subtitle-small">Dic. 2009 – Ene. 2026</div>
+    </div>
+    <div class="latest-badge">
+      <span class="badge-label">Ene. 2026</span>40.1%
+    </div>
+  </div>
+  <div class="chart-container"><canvas id="iessChart"></canvas></div>
+  <div class="source">Fuentes: INEC – REESS (empleo IESS) · INEC – ENEMDU (PEA)</div>
+</div>
+<script>
+const rawData = [{"period":"dic-09","ratio":29.2},{"period":"jun-10","ratio":32.7},{"period":"dic-10","ratio":35.9},{"period":"jun-11","ratio":38.6},{"period":"dic-11","ratio":41.3},{"period":"jun-12","ratio":41.8},{"period":"dic-12","ratio":45.2},{"period":"jun-13","ratio":45.0},{"period":"dic-13","ratio":46.5},{"period":"mar-14","ratio":46.1},{"period":"jun-14","ratio":47.2},{"period":"sep-14","ratio":46.9},{"period":"dic-14","ratio":47.0},{"period":"mar-15","ratio":45.7},{"period":"jun-15","ratio":45.6},{"period":"sep-15","ratio":44.6},{"period":"dic-15","ratio":44.6},{"period":"mar-16","ratio":41.5},{"period":"jun-16","ratio":41.3},{"period":"sep-16","ratio":40.1},{"period":"dic-16","ratio":41.1},{"period":"mar-17","ratio":40.0},{"period":"jun-17","ratio":39.7},{"period":"sep-17","ratio":39.8},{"period":"dic-17","ratio":40.5},{"period":"mar-18","ratio":40.2},{"period":"jun-18","ratio":41.4},{"period":"sep-18","ratio":40.3},{"period":"dic-18","ratio":41.7},{"period":"mar-19","ratio":40.7},{"period":"jun-19","ratio":40.4},{"period":"sep-19","ratio":39.8},{"period":"dic-19","ratio":41.1},{"period":"sep-20","ratio":37.9},{"period":"oct-20","ratio":36.7},{"period":"nov-20","ratio":37.4},{"period":"dic-20","ratio":37.7},{"period":"ene-21","ratio":36.4},{"period":"feb-21","ratio":36.9},{"period":"mar-21","ratio":37.9},{"period":"abr-21","ratio":36.8},{"period":"may-21","ratio":36.1},{"period":"jun-21","ratio":37.0},{"period":"jul-21","ratio":37.4},{"period":"ago-21","ratio":36.3},{"period":"sep-21","ratio":36.8},{"period":"oct-21","ratio":37.3},{"period":"nov-21","ratio":37.1},{"period":"dic-21","ratio":36.5},{"period":"ene-22","ratio":36.9},{"period":"feb-22","ratio":37.1},{"period":"mar-22","ratio":38.0},{"period":"abr-22","ratio":37.1},{"period":"may-22","ratio":37.2},{"period":"jun-22","ratio":37.3},{"period":"jul-22","ratio":37.3},{"period":"ago-22","ratio":37.6},{"period":"sep-22","ratio":37.1},{"period":"oct-22","ratio":37.3},{"period":"nov-22","ratio":38.8},{"period":"dic-22","ratio":38.8},{"period":"ene-23","ratio":37.8},{"period":"feb-23","ratio":38.0},{"period":"mar-23","ratio":38.9},{"period":"abr-23","ratio":38.2},{"period":"may-23","ratio":39.6},{"period":"jun-23","ratio":38.7},{"period":"jul-23","ratio":38.8},{"period":"ago-23","ratio":38.6},{"period":"sep-23","ratio":37.5},{"period":"oct-23","ratio":39.3},{"period":"nov-23","ratio":38.9},{"period":"dic-23","ratio":38.2},{"period":"ene-24","ratio":38.3},{"period":"feb-24","ratio":39.2},{"period":"mar-24","ratio":38.3},{"period":"abr-24","ratio":38.1},{"period":"may-24","ratio":39.1},{"period":"jun-24","ratio":37.9},{"period":"jul-24","ratio":38.0},{"period":"ago-24","ratio":38.3},{"period":"sep-24","ratio":37.9},{"period":"oct-24","ratio":39.4},{"period":"nov-24","ratio":38.4},{"period":"dic-24","ratio":38.6},{"period":"ene-25","ratio":39.4},{"period":"feb-25","ratio":38.2},{"period":"mar-25","ratio":37.9},{"period":"abr-25","ratio":39.1},{"period":"may-25","ratio":38.1},{"period":"jun-25","ratio":37.8},{"period":"jul-25","ratio":39.1},{"period":"ago-25","ratio":37.5},{"period":"sep-25","ratio":37.9},{"period":"oct-25","ratio":39.2},{"period":"nov-25","ratio":38.0},{"period":"dic-25","ratio":39.5},{"period":"ene-26","ratio":40.1}];
+
+const ctx = document.getElementById('iessChart').getContext('2d');
+const grad = ctx.createLinearGradient(0,0,0,280);
+grad.addColorStop(0,'rgba(67,97,238,0.14)'); grad.addColorStop(1,'rgba(67,97,238,0.01)');
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: rawData.map(d => d.period),
+    datasets: [{ data: rawData.map(d => d.ratio), borderColor:'#4361ee', backgroundColor: grad, borderWidth: 1.8, pointBackgroundColor:'#4361ee', pointRadius: 2, pointHoverRadius: 5, fill: true, tension: 0.3 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' '+c.parsed.y.toFixed(1)+'%' } } },
+    scales: {
+      x: { ticks: { font:{size:10}, color:'#aaa', maxTicksLimit:16, maxRotation:30 }, grid: { display:false }, border: { display:false } },
+      y: { min: 0, max: 60, ticks: { callback: v => v+'%', font:{size:11}, color:'#888', stepSize:10 }, grid: { color:'#f0f0f0' }, border: { display:false } }
+    }
+  }
+});
+</script>
+</body>
+</html>

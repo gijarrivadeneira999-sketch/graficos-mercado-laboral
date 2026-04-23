@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Componentes del Empleo No Adecuado</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #f9f8f6; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 20px; }
+  .page-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: #1a1a2e; margin-bottom: 24px; text-align: center; }
+  .charts-row { display: flex; gap: 24px; width: 100%; max-width: 980px; flex-wrap: wrap; justify-content: center; }
+  .chart-card { background: #fff; border-radius: 16px; padding: 24px 24px 18px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); flex: 1; min-width: 240px; max-width: 300px; }
+  .period-label { font-size: 11px; color: #999; margin-bottom: 2px; }
+  .chart-title { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .chart-subtitle { font-size: 10.5px; color: #aaa; margin-bottom: 16px; }
+  .chart-container { position: relative; height: 200px; }
+  .source { margin-top: 10px; font-size: 10px; color: #aaa; }
+</style>
+</head>
+<body>
+<div class="page-title">Componentes del empleo no adecuado</div>
+<div class="charts-row">
+  <div class="chart-card">
+    <div class="period-label">Mar. 2021 – Mar. 2026</div>
+    <div class="chart-title">Subempleo</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de marzo</div>
+    <div class="chart-container"><canvas id="subChart"></canvas></div>
+    <div class="source">Fuente: INEC – ENEMDU</div>
+  </div>
+  <div class="chart-card">
+    <div class="period-label">Mar. 2021 – Mar. 2026</div>
+    <div class="chart-title">Otro empleo no pleno</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de marzo</div>
+    <div class="chart-container"><canvas id="otroChart"></canvas></div>
+    <div class="source">Fuente: INEC – ENEMDU</div>
+  </div>
+  <div class="chart-card">
+    <div class="period-label">Mar. 2021 – Mar. 2026</div>
+    <div class="chart-title">Empleo no remunerado</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de marzo</div>
+    <div class="chart-container"><canvas id="nremChart"></canvas></div>
+    <div class="source">Fuente: INEC – ENEMDU</div>
+  </div>
+</div>
+<script>
+const labels = ['Mar 2021','Mar 2022','Mar 2023','Mar 2024','Mar 2025','Mar 2026'];
+const subem  = [23.0, 23.0, 19.7, 20.3, 20.9, 19.6];
+const otrono = [27.2, 28.5, 30.9, 30.1, 29.7, 34.8];
+const norem  = [12.6, 10.6, 11.0, 11.3, 11.8, 10.4];
+
+function makeChart(id, data, color) {
+  const canvas = document.getElementById(id);
+  const grad = canvas.getContext('2d').createLinearGradient(0,0,0,200);
+  grad.addColorStop(0, color+'28'); grad.addColorStop(1, color+'04');
+  new Chart(canvas, {
+    type: 'line',
+    data: { labels, datasets: [{ data, borderColor: color, backgroundColor: grad, borderWidth: 2.5, pointBackgroundColor: color, pointRadius: 4.5, pointHoverRadius: 7, fill: true, tension: 0.3 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' '+c.parsed.y.toFixed(1)+'%' } } },
+      scales: {
+        x: { ticks: { font:{size:10}, color:'#888', maxRotation:30 }, grid: { display:false }, border: { display:false } },
+        y: { min: 0, max: 50, ticks: { callback: v => v+'%', font:{size:10}, color:'#888', stepSize:10 }, grid: { color:'#f0f0f0' }, border: { display:false } }
+      }
+    },
+    plugins: [{ id:'endLbl', afterDatasetsDraw(chart) {
+      const {ctx}=chart; const meta=chart.getDatasetMeta(0);
+      const last=meta.data[meta.data.length-1]; const val=data[data.length-1];
+      ctx.save(); ctx.fillStyle=color; ctx.font='bold 11px DM Sans,sans-serif';
+      ctx.textAlign='right'; ctx.fillText(val.toFixed(1)+'%', last.x-4, last.y-9); ctx.restore();
+    }}]
+  });
+}
+makeChart('subChart',  subem,  '#27ae60');
+makeChart('otroChart', otrono, '#f39c12');
+makeChart('nremChart', norem,  '#2980b9');
+</script>
+</body>
+</html>
