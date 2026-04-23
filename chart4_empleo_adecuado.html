@@ -68,7 +68,7 @@ function makeChart(id, data, color) {
       const {ctx}=chart; const meta=chart.getDatasetMeta(0);
       const last=meta.data[meta.data.length-1]; const val=data[data.length-1];
       ctx.save(); ctx.fillStyle=color; ctx.font='bold 12px DM Sans,sans-serif';
-      ctx.textAlign='left'; ctx.fillText(val.toFixed(1)+'%', last.x+6, last.y+4); ctx.restore();
+      ctx.textAlign='center'; ctx.fillText(val.toFixed(1)+'%', last.x, last.y-10); ctx.restore();
     }}]
   });
 }
