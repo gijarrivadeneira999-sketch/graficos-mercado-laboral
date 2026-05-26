@@ -22,25 +22,26 @@
 <body>
 <div class="charts-row">
   <div class="chart-card">
-    <div class="period-label">Mar. 2021 – Mar. 2026</div>
+    <div class="period-label">Abr. 2021 – Abr. 2026</div>
     <div class="chart-title">Empleo adecuado</div>
-    <div class="chart-subtitle">Porcentaje de la PEA | Dato de marzo</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de abril</div>
     <div class="chart-container"><canvas id="adecChart"></canvas></div>
     <div class="source">Fuente: INEC – ENEMDU</div>
   </div>
   <div class="chart-card">
-    <div class="period-label">Mar. 2021 – Mar. 2026</div>
+    <div class="period-label">Abr. 2021 – Abr. 2026</div>
     <div class="chart-title">Empleo no adecuado</div>
-    <div class="chart-subtitle">Porcentaje de la PEA | Dato de marzo</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de abril</div>
     <div class="chart-container"><canvas id="noadecChart"></canvas></div>
     <div class="source">Fuente: INEC – ENEMDU</div>
   </div>
 </div>
 <script>
-const labels = ['Mar 2021','Mar 2022','Mar 2023','Mar 2024','Mar 2025','Mar 2026'];
-const adec   = [31.6, 32.7, 34.6, 34.4, 34.2, 32.1];
+const labels = ['Abr 2021', 'Abr 2022', 'Abr 2023', 'Abr 2024', 'Abr 2025', 'Abr 2026'];
+const adec   = [30.8, 32.5, 35.2, 33.6, 35.8, 34.3];
 // No adecuado = subempleo + otro no pleno + no remunerado
-const noadec = [
+const noadec = [63.3, 62.6, 60.6, 63.0, 60.6, 62.3];
+const noadec_OLD = [
   23.0+27.2+12.6,  // mar-21 = 62.8
   23.0+28.5+10.6,  // mar-22 = 62.1
   19.7+30.9+11.0,  // mar-23 = 61.6
