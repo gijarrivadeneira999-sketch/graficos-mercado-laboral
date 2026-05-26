@@ -54,7 +54,7 @@ new Chart(document.getElementById('ageChart'), {
 });
 new Chart(document.getElementById('genderChart'), {
   type: 'bar',
-  data: { labels: ['Hombre','Mujer'], datasets: [{ data: [59.2, 40.8], backgroundColor: ['#74b9ff','#a29bfe'], borderRadius: 8, borderSkipped: false }] },
+  data: { labels: ['Hombre','Mujer'], datasets: [{ data: [58.0, 42.0], backgroundColor: ['#74b9ff','#a29bfe'], borderRadius: 8, borderSkipped: false }] },
   options: {
     indexAxis: 'y', responsive: true, maintainAspectRatio: false,
     plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.parsed.x}%` } } },
@@ -64,7 +64,7 @@ new Chart(document.getElementById('genderChart'), {
     }
   },
   plugins: [{ id:'lbl', afterDatasetsDraw(chart) {
-    const {ctx}=chart; const vals=[59.2,40.8]; const cols=['#4a8cdb','#7c6ece'];
+    const {ctx}=chart; const vals=[58.0,42.0]; const cols=['#4a8cdb','#7c6ece'];
     chart.getDatasetMeta(0).data.forEach((bar,i) => { ctx.save(); ctx.fillStyle=cols[i]; ctx.font='bold 13px DM Sans,sans-serif'; ctx.textAlign='left'; ctx.fillText(vals[i]+'%',bar.x+6,bar.y+5); ctx.restore(); });
   }}]
 });
