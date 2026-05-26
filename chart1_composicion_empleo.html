@@ -27,10 +27,10 @@
     <div class="chart-label">Distribución</div>
     <div class="chart-title">Por edad</div>
     <div class="legend-row">
-      <div class="legend-item"><div class="legend-dot" style="background:#F4845F"></div>45–64 años</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#3D9970"></div>35–44 años</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#74b9ff"></div>25–34 años</div>
       <div class="legend-item"><div class="legend-dot" style="background:#fd79a8"></div>15–24 años</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#74b9ff"></div>25–34 años</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#3D9970"></div>35–44 años</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#F4845F"></div>45–64 años</div>
       <div class="legend-item"><div class="legend-dot" style="background:#a29bfe"></div>65+ años</div>
     </div>
     <div class="chart-container"><canvas id="ageChart"></canvas></div>
@@ -47,8 +47,8 @@
 new Chart(document.getElementById('ageChart'), {
   type: 'pie',
   data: {
-    labels: ['45–64 años','35–44 años','25–34 años','15–24 años','65+ años'],
-    datasets: [{ data: [14.0, 21.5, 25.5, 30.5, 8.5], backgroundColor: ['#F4845F','#3D9970','#74b9ff','#fd79a8','#a29bfe'], borderWidth: 2, borderColor: '#fff' }]
+    labels: ['15–24 años','25–34 años','35–44 años','45–64 años','65+ años'],
+    datasets: [{ data: [14.0, 21.5, 25.5, 30.5, 8.5], backgroundColor: ['#fd79a8','#74b9ff','#3D9970','#F4845F','#a29bfe'], borderWidth: 2, borderColor: '#fff' }]
   },
   options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.label}: ${c.parsed}%` } } } }
 });
