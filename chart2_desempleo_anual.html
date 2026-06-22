@@ -21,24 +21,24 @@
 <body>
 <div class="charts-row">
   <div class="chart-card">
-    <div class="period-label">Abr. 2021 – Abr. 2026</div>
+    <div class="period-label">May. 2021 – May. 2026</div>
     <div class="chart-title">Porcentaje de la PEA en desempleo</div>
-    <div class="chart-subtitle">Dato de abril de cada año</div>
+    <div class="chart-subtitle">Dato de mayo de cada año</div>
     <div class="chart-container"><canvas id="pctChart"></canvas></div>
     <div class="source">Fuente: INEC – ENEMDU</div>
   </div>
   <div class="chart-card">
-    <div class="period-label">Abr. 2021 – Abr. 2026</div>
+    <div class="period-label">May. 2021 – May. 2026</div>
     <div class="chart-title">Número de personas en desempleo</div>
-    <div class="chart-subtitle">Dato de abril de cada año</div>
+    <div class="chart-subtitle">Dato de mayo de cada año</div>
     <div class="chart-container"><canvas id="numChart"></canvas></div>
     <div class="source">Fuente: INEC – ENEMDU</div>
   </div>
 </div>
 <script>
 const years = ['Abr 2021', 'Abr 2022', 'Abr 2023', 'Abr 2024', 'Abr 2025', 'Abr 2026'];
-const pct   = [5.1, 4.7, 4.0, 3.4, 3.6, 3.1];
-const num   = [425840, 399432, 341849, 291597, 309055, 277210];
+const pct   = [6.3, 3.7, 3.2, 3.5, 4.1, 3.1];
+const num   = [537958, 314988, 264796, 298898, 359778, 273679];
 
 function lineChart(id, data, color, yMax, tickFn, tipFn) {
   const canvas = document.getElementById(id);

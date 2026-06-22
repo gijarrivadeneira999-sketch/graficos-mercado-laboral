@@ -22,32 +22,32 @@
 <body>
 <div class="charts-row">
   <div class="chart-card">
-    <div class="period-label">Abr. 2021 – Abr. 2026</div>
+    <div class="period-label">May. 2021 – May. 2026</div>
     <div class="chart-title">Subempleo</div>
-    <div class="chart-subtitle">Porcentaje de la PEA | Dato de abril</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de mayo</div>
     <div class="chart-container"><canvas id="subChart"></canvas></div>
     <div class="source">Fuente: INEC – ENEMDU</div>
   </div>
   <div class="chart-card">
-    <div class="period-label">Abr. 2021 – Abr. 2026</div>
+    <div class="period-label">May. 2021 – May. 2026</div>
     <div class="chart-title">Otro empleo no pleno</div>
-    <div class="chart-subtitle">Porcentaje de la PEA | Dato de abril</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de mayo</div>
     <div class="chart-container"><canvas id="otroChart"></canvas></div>
     <div class="source">Fuente: INEC – ENEMDU</div>
   </div>
   <div class="chart-card">
-    <div class="period-label">Abr. 2021 – Abr. 2026</div>
+    <div class="period-label">May. 2021 – May. 2026</div>
     <div class="chart-title">Empleo no remunerado</div>
-    <div class="chart-subtitle">Porcentaje de la PEA | Dato de abril</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de mayo</div>
     <div class="chart-container"><canvas id="nremChart"></canvas></div>
     <div class="source">Fuente: INEC – ENEMDU</div>
   </div>
 </div>
 <script>
 const labels = ['Abr 2021', 'Abr 2022', 'Abr 2023', 'Abr 2024', 'Abr 2025', 'Abr 2026'];
-const subem  = [23.3, 23.9, 19.9, 21.1, 21.1, 19.5];
-const otrono = [27.0, 28.1, 30.3, 30.5, 30.0, 33.9];
-const norem  = [13.0, 10.6, 10.4, 11.4, 9.5, 8.9];
+const subem  = [23.2, 22.1, 18.9, 23.1, 20.9, 18.3];
+const otrono = [26.5, 28.9, 30.6, 29.6, 30.2, 32.1];
+const norem  = [12.7, 11.8, 10.7, 10.3, 9.5, 9.7];
 
 function makeChart(id, data, color) {
   const canvas = document.getElementById(id);

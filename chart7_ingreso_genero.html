@@ -21,11 +21,12 @@
 <body>
 <div class="chart-card">
   <div class="page-title">Ingreso laboral promedio según género</div>
-  <div class="period-label">Abril 2026 · USD a precios constantes de Dic. 2025</div>
+  <div class="period-label">Mayo 2026 · USD a precios constantes de Dic. 2025</div>
   <div class="note">Incluye asalariados e independientes (ocupación principal y secundaria)</div>
-  <div class="gap-badge">⚠ Brecha de género: $107.7 — hombres ganan 24.1% más que mujeres</div>
+  <div class="gap-badge">⚠ Brecha de género: $100.2 — hombres ganan 24.4% más que mujeres</div>
+  <div class="note" style="margin-top:-8px;">Nota INEC: no existe diferencia estadísticamente significativa en el ingreso total entre may. 2025 y may. 2026</div>
   <div class="chart-container"><canvas id="salaryChart"></canvas></div>
-  <div class="source">Fuente: INEC – ENEMDU Abr. 2026</div>
+  <div class="source">Fuente: INEC – ENEMDU May. 2026</div>
 </div>
 <script>
 // Valores reales a precios constantes de dic-25 (de imagen INEC)
@@ -34,7 +35,7 @@ new Chart(document.getElementById('salaryChart'), {
   type: 'bar',
   data: {
     labels: ['Hombre','Mujer','Total'],
-    datasets: [{ data: [555.0, 447.3, 512.9], backgroundColor: ['#74b9ff','#a29bfe','#fd7b4d'], borderRadius: 10, borderSkipped: false, barThickness: 52 }]
+    datasets: [{ data: [510.5, 410.3, 471.4], backgroundColor: ['#74b9ff','#a29bfe','#fd7b4d'], borderRadius: 10, borderSkipped: false, barThickness: 52 }]
   },
   options: {
     indexAxis: 'y', responsive: true, maintainAspectRatio: false,
@@ -45,7 +46,7 @@ new Chart(document.getElementById('salaryChart'), {
     }
   },
   plugins: [{ id:'barLbls', afterDatasetsDraw(chart) {
-    const {ctx}=chart; const cols=['#4a9cdb','#7c6ece','#d4603a']; const vals=[555.0,447.3,512.9];
+    const {ctx}=chart; const cols=['#4a9cdb','#7c6ece','#d4603a']; const vals=[510.5,410.3,471.4];
     chart.getDatasetMeta(0).data.forEach((bar,i) => {
       ctx.save(); ctx.fillStyle=cols[i]; ctx.font='bold 13px DM Sans,sans-serif';
       ctx.textAlign='left'; ctx.fillText('$'+vals[i].toFixed(1), bar.x+8, bar.y+5); ctx.restore();

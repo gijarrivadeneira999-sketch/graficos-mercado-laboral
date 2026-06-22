@@ -22,24 +22,24 @@
 <body>
 <div class="charts-row">
   <div class="chart-card">
-    <div class="period-label">Abr. 2021 – Abr. 2026</div>
+    <div class="period-label">May. 2021 – May. 2026</div>
     <div class="chart-title">Sector formal</div>
-    <div class="chart-subtitle">Porcentaje de la PEA | Dato de abril</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de mayo</div>
     <div class="chart-container"><canvas id="formalChart"></canvas></div>
     <div class="source">Fuente: INEC – ENEMDU</div>
   </div>
   <div class="chart-card">
-    <div class="period-label">Abr. 2021 – Abr. 2026</div>
+    <div class="period-label">May. 2021 – May. 2026</div>
     <div class="chart-title">Sector informal</div>
-    <div class="chart-subtitle">Porcentaje de la PEA | Dato de abril</div>
+    <div class="chart-subtitle">Porcentaje de la PEA | Dato de mayo</div>
     <div class="chart-container"><canvas id="informalChart"></canvas></div>
     <div class="source">Fuente: INEC – ENEMDU</div>
   </div>
 </div>
 <script>
 const labels   = ['Abr 2021', 'Abr 2022', 'Abr 2023', 'Abr 2024', 'Abr 2025', 'Abr 2026'];
-const formal   = [39.9, 42.7, 42.4, 42.7, 41.5, 40.3];
-const informal = [52.7, 51.7, 53.8, 53.4, 54.1, 55.8];
+const formal   = [39.7, 41.9, 43.2, 42.1, 44.2, 41.3];
+const informal = [52.7, 51.7, 53.3, 54.4, 51.8, 52.8];
 
 function makeChart(id, data, color) {
   const canvas = document.getElementById(id);

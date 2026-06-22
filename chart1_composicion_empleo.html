@@ -34,13 +34,13 @@
       <div class="legend-item"><div class="legend-dot" style="background:#a29bfe"></div>65+ años</div>
     </div>
     <div class="chart-container"><canvas id="ageChart"></canvas></div>
-    <div class="source">Fuente: INEC – ENEMDU Abr. 2026</div>
+    <div class="source">Fuente: INEC – ENEMDU May. 2026</div>
   </div>
   <div class="chart-card">
     <div class="chart-label">Distribución</div>
     <div class="chart-title">Por género</div>
     <div class="chart-container"><canvas id="genderChart"></canvas></div>
-    <div class="source">Fuente: INEC – ENEMDU Abr. 2026</div>
+    <div class="source">Fuente: INEC – ENEMDU May. 2026</div>
   </div>
 </div>
 <script>
@@ -48,13 +48,13 @@ new Chart(document.getElementById('ageChart'), {
   type: 'pie',
   data: {
     labels: ['15–24 años','25–34 años','35–44 años','45–64 años','65+ años'],
-    datasets: [{ data: [14.0, 21.5, 25.5, 30.5, 8.5], backgroundColor: ['#fd79a8','#74b9ff','#3D9970','#F4845F','#a29bfe'], borderWidth: 2, borderColor: '#fff' }]
+    datasets: [{ data: [15.1, 20.4, 22.7, 33.9, 7.8], backgroundColor: ['#fd79a8','#74b9ff','#3D9970','#F4845F','#a29bfe'], borderWidth: 2, borderColor: '#fff' }]
   },
   options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.label}: ${c.parsed}%` } } } }
 });
 new Chart(document.getElementById('genderChart'), {
   type: 'bar',
-  data: { labels: ['Hombre','Mujer'], datasets: [{ data: [58.0, 42.0], backgroundColor: ['#74b9ff','#a29bfe'], borderRadius: 8, borderSkipped: false }] },
+  data: { labels: ['Hombre','Mujer'], datasets: [{ data: [57.5, 42.5], backgroundColor: ['#74b9ff','#a29bfe'], borderRadius: 8, borderSkipped: false }] },
   options: {
     indexAxis: 'y', responsive: true, maintainAspectRatio: false,
     plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.parsed.x}%` } } },
@@ -64,7 +64,7 @@ new Chart(document.getElementById('genderChart'), {
     }
   },
   plugins: [{ id:'lbl', afterDatasetsDraw(chart) {
-    const {ctx}=chart; const vals=[58.0,42.0]; const cols=['#4a8cdb','#7c6ece'];
+    const {ctx}=chart; const vals=[57.5, 42.5]; const cols=['#4a8cdb','#7c6ece'];
     chart.getDatasetMeta(0).data.forEach((bar,i) => { ctx.save(); ctx.fillStyle=cols[i]; ctx.font='bold 13px DM Sans,sans-serif'; ctx.textAlign='left'; ctx.fillText(vals[i]+'%',bar.x+6,bar.y+5); ctx.restore(); });
   }}]
 });
